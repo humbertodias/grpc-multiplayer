@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:TextField picking-mode="Ignore" value="localhost:9090" text="IP:PORT">
+        <Style src="LoginUI.uss" />
+    </ui:TextField>
+    <ui:TextField picking-mode="Ignore" value="test" text="User Name">
+        <Style src="LoginUI.uss" />
+    </ui:TextField>
+    <ui:Button text="Connect" style="align-items: auto;">
+        <Style src="LoginUI.uss" />
+    </ui:Button>
+</ui:UXML>
