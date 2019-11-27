@@ -26,28 +26,23 @@ public class Movement : MonoBehaviour
 
     private void Move(){
         if(input){
-            if(Input.GetKey(KeyCode.UpArrow)){
+            if(Input.GetKeyDown(KeyCode.UpArrow)){
                 StartCoroutine("moveUp");
-                input = false;
             }
-            if(Input.GetKey(KeyCode.DownArrow)){
+            if(Input.GetKeyDown(KeyCode.DownArrow)){
                 StartCoroutine("moveDown");
-                input = false;
-                
             }
-            if(Input.GetKey(KeyCode.LeftArrow)){
+            if(Input.GetKeyDown(KeyCode.LeftArrow)){
                 StartCoroutine("moveLeft");
-                input = false;
-                
             }
-            if(Input.GetKey(KeyCode.RightArrow)){
+            if(Input.GetKeyDown(KeyCode.RightArrow)){
                 StartCoroutine("moveRight");
-                input = false;
             }
         }
     }
 
     IEnumerator moveUp(){
+        input = false;
         for(int i=0; i < (90/step); i++){
             player.transform.RotateAround(up.transform.position, Vector3.right, step);
             yield return new WaitForSeconds(speed);
@@ -57,6 +52,7 @@ public class Movement : MonoBehaviour
     }
 
     IEnumerator moveDown(){
+        input = false;
         for(int i=0; i < (90/step); i++){
             player.transform.RotateAround(down.transform.position, Vector3.left, step);
             yield return new WaitForSeconds(speed);
@@ -66,6 +62,7 @@ public class Movement : MonoBehaviour
     }
 
     IEnumerator moveLeft(){
+        input = false;
         for(int i=0; i < (90/step); i++){
             player.transform.RotateAround(left.transform.position, Vector3.forward, step);
             yield return new WaitForSeconds(speed);
@@ -75,11 +72,13 @@ public class Movement : MonoBehaviour
     }
     
     IEnumerator moveRight(){
+        input = false;
         for(int i=0; i < (90/step); i++){
             player.transform.RotateAround(right.transform.position, Vector3.back, step);
             yield return new WaitForSeconds(speed);
         }
         center.transform.position = player.transform.position;
         input = true;
-    }    
+    }
+        
 }

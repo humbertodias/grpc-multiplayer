@@ -30,7 +30,26 @@ public class MultiplayerService extends MultiplayImplBase {
 
     @Override
     public StreamObserver<Multiplayer.SetPositionRequest> setPosition(StreamObserver<Multiplayer.SetPositionResponse> responseObserver) {
-        return super.setPosition(responseObserver);
+        return new StreamObserver<Multiplayer.SetPositionRequest>() {
+            Multiplayer.UserPosition userPosition;
+            @Override
+            public void onNext(Multiplayer.SetPositionRequest request) {
+                userPosition = Multiplayer.UserPosition.newBuilder().setId(request.getId()).setX(request.getX()).setY(request.getY()).setZ(request.getZ()).build();
+                userPositions.put(userPosition.getId(),userPosition);
+                Multiplayer.SetPositionResponse setPositionResponse = Multiplayer.SetPositionResponse.newBuilder().setId(request.getId()).setStatus("ok").build();
+                responseObserver.onNext(setPositionResponse);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                responseObserver.onCompleted();
+            }
+        };
     }
 
     @Override

@@ -11,14 +11,17 @@ using Anharu;
 
 public class ClientController : MonoBehaviour
 {
-    public Text userNameText;
+    public Text userName;
+    public Text server;
     public Text error;
 
     private Channel channel;
 
     void Start()
     {
-        channel = new Channel("127.0.0.1:57601", ChannelCredentials.Insecure);
+        channel = new Channel(server.text, ChannelCredentials.Insecure);
+        PlayerPrefs.SetString("serverPort", server.text);
+
     }
 
     public void SendUser()
@@ -26,7 +29,7 @@ public class ClientController : MonoBehaviour
         try
         {
             var client = new User.UserClient(channel);
-            var reply = client.Create(new CreateUserRequest { Name = userNameText.text });
+            var reply = client.Create(new CreateUserRequest { Name = userName.text });
 
             Debug.Log("Your ID is" + reply.Id);
             PlayerPrefs.SetString("userId", reply.Id);
