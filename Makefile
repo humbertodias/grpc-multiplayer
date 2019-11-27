@@ -49,5 +49,4 @@ build-server: init
 build:	build-client	build-server
 
 clean:
-	rm -rf tools
-	rm -rf $(CLIENT_ASSETS_DIR)/Plugins
+	rm -rf tools $(CLIENT_ASSETS_DIR)/Plugins
