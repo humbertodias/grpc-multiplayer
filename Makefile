@@ -48,5 +48,9 @@ build-server: init
 
 build:	build-client	build-server
 
-clean:
+clean: ## Honey baby
 	rm -rf tools $(CLIENT_ASSETS_DIR)/Plugins
+
+
+help: ## Display this help screen
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
