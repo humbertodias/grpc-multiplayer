@@ -6,11 +6,9 @@ import java.io.IOException;
 public class Main {
     public static void main(String [] args) throws InterruptedException, IOException {
 
-        UserService userService = new UserService();
-
         Server server = ServerBuilder.forPort(57601)
-                .addService( userService )
-                .addService( new MultiplayerService(userService) )
+                .addService( new UserService() )
+                .addService( new MultiplayerService() )
                 .build();
         System.out.println("Starting server...");
         server.start();

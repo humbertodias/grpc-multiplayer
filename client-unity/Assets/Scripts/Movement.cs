@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using System;
+
+
 
 public class Movement : MonoBehaviour
 {
@@ -14,8 +18,10 @@ public class Movement : MonoBehaviour
 
     public int step = 9;
     public float speed = 0.01f;
-    public bool input = true;
+    private bool input = true;
 
+    public UnityAction OnBeforeFlip;
+    public UnityAction OnAfterFlip;
 
 
     // Update is called once per frame
@@ -42,43 +48,57 @@ public class Movement : MonoBehaviour
     }
 
     IEnumerator moveUp(){
-        input = false;
+        beforeFlip();
         for(int i=0; i < (90/step); i++){
             player.transform.RotateAround(up.transform.position, Vector3.right, step);
             yield return new WaitForSeconds(speed);
         }
         center.transform.position = player.transform.position;
+        afterFlip();
+    }
+
+    private void beforeFlip(){
+        input = false;
+        if(OnBeforeFlip != null){
+            OnBeforeFlip();
+        }
+    }
+
+    private void afterFlip(){
         input = true;
+        if(OnAfterFlip != null){
+            OnAfterFlip();
+        }
     }
 
     IEnumerator moveDown(){
-        input = false;
+        beforeFlip();
         for(int i=0; i < (90/step); i++){
             player.transform.RotateAround(down.transform.position, Vector3.left, step);
             yield return new WaitForSeconds(speed);
         }
         center.transform.position = player.transform.position;
-        input = true;
+        afterFlip();
     }
 
     IEnumerator moveLeft(){
-        input = false;
+        beforeFlip();
         for(int i=0; i < (90/step); i++){
             player.transform.RotateAround(left.transform.position, Vector3.forward, step);
             yield return new WaitForSeconds(speed);
         }
         center.transform.position = player.transform.position;
-        input = true;
+        afterFlip();
     }
     
     IEnumerator moveRight(){
-        input = false;
+        beforeFlip();
         for(int i=0; i < (90/step); i++){
             player.transform.RotateAround(right.transform.position, Vector3.back, step);
             yield return new WaitForSeconds(speed);
         }
         center.transform.position = player.transform.position;
-        input = true;
+        afterFlip();
     }
         
 }

@@ -6,5 +6,9 @@ gradle**
 build
 
 
+bin
+obj
+
 .settings
+.project
 gen

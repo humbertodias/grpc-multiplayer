@@ -62,3 +62,4 @@ crashlytics-build.properties
 
 # UnityPackage
 Assets/Plugins/*
+.idea
