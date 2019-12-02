@@ -35,13 +35,13 @@ public class Movement : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.UpArrow)){
                 StartCoroutine("moveUp");
             }
-            if(Input.GetKeyDown(KeyCode.DownArrow)){
+            else if(Input.GetKeyDown(KeyCode.DownArrow)){
                 StartCoroutine("moveDown");
             }
-            if(Input.GetKeyDown(KeyCode.LeftArrow)){
+            else if(Input.GetKeyDown(KeyCode.LeftArrow)){
                 StartCoroutine("moveLeft");
             }
-            if(Input.GetKeyDown(KeyCode.RightArrow)){
+            else if(Input.GetKeyDown(KeyCode.RightArrow)){
                 StartCoroutine("moveRight");
             }
         }

@@ -15,19 +15,12 @@ public class ClientController : MonoBehaviour
     public Text server;
     public Text error;
 
-    private Channel channel;
-
-    void Start()
-    {
-        channel = new Channel(server.text, ChannelCredentials.Insecure);
-        PlayerPrefs.SetString("serverPort", server.text);
-
-    }
-
     public void SendUser()
     {
         try
         {
+            Debug.Log("Server>" + server.text);
+            var channel = new Channel(server.text, ChannelCredentials.Insecure);
             var client = new User.UserClient(channel);
             var reply = client.Create(new CreateUserRequest { Name = userName.text });
 
@@ -35,6 +28,8 @@ public class ClientController : MonoBehaviour
             PlayerPrefs.SetString("userId", reply.Id);
 
             channel.ShutdownAsync().Wait();
+
+            PlayerPrefs.SetString("serverPort", server.text);
             SceneManager.LoadScene("Main");
 
         } catch(Exception e)
