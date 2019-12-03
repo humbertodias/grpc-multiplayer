@@ -9,16 +9,27 @@ using System.Threading;
 using System.Threading.Tasks;
 using Anharu;
 
-public class ClientController : MonoBehaviour
+public class ClientLogin : MonoBehaviour
 {
-    public Text userName;
     public Text server;
+    public Text userName;
     public Text error;
 
+    public string nextScene;
+
+    void Start()
+    {
+        string serverPort = PlayerPrefs.GetString("serverPort");
+        if (serverPort != null)
+        {
+            server.text = serverPort;
+        }
+    }
     public void SendUser()
     {
         try
         {
+            PlayerPrefs.SetString("serverPort", server.text);
             Debug.Log("Server>" + server.text);
             var channel = new Channel(server.text, ChannelCredentials.Insecure);
             var client = new User.UserClient(channel);
@@ -29,12 +40,12 @@ public class ClientController : MonoBehaviour
 
             channel.ShutdownAsync().Wait();
 
-            PlayerPrefs.SetString("serverPort", server.text);
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene(nextScene);
 
         } catch(Exception e)
         {
-            error.text = e.ToString();
+            error.text = server.text = "\n"; 
+            error.text += e.ToString();
         }
     }
 }

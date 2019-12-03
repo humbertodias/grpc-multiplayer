@@ -30,7 +30,14 @@ public class Movement : MonoBehaviour
         Move();   
     }
 
-    private void Move(){
+    private void Move()
+    {
+        Keyboard();
+        Touch();
+    }
+
+    void Keyboard()
+    {
         if(input){
             if(Input.GetKeyDown(KeyCode.UpArrow)){
                 StartCoroutine("moveUp");
@@ -43,6 +50,30 @@ public class Movement : MonoBehaviour
             }
             else if(Input.GetKeyDown(KeyCode.RightArrow)){
                 StartCoroutine("moveRight");
+            }
+        }
+    }
+    
+    void Touch()
+    {
+        if (input)
+        {
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                Touch touch = Input.GetTouch(i);
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    if (touch.position.x > (Screen.width / 2))
+                    {
+                        StartCoroutine("moveRight");
+                    }
+
+                    if (touch.position.x < (Screen.width / 2))
+                    {
+                        StartCoroutine("moveLeft");
+                    }
+                }
             }
         }
     }

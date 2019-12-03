@@ -1,43 +1,18 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using Grpc.Core;
-using Google.Protobuf;
-using System.Threading;
-using System.Threading.Tasks;
-using Anharu;
-using System;
-
 public class GameManager : MonoBehaviour
 {
-
-    private Channel channel;
-
-    private Hashtable userObjects;
-
-    
-    void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
-        channel = new Channel("127.0.0.1:57601", ChannelCredentials.Insecure);
-        userObjects = new Hashtable();
+        
     }
 
-    public Channel GetChannel()
+    // Update is called once per frame
+    void Update()
     {
-        return channel;
+        
     }
-
-    public Hashtable getUserObjects()
-    {
-        return userObjects;
-    }
-    
-    public void CloseConnection()
-    {
-        Debug.Log("Before close - " + channel.State);
-        channel.ShutdownAsync().Wait();
-        Debug.Log("After close - " + channel.State);
-    }    
-    
 }
